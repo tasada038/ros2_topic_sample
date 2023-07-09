@@ -16,6 +16,8 @@ ROS 2 topic sample package
 ros2 launch ros2_topic_sample data_publishers.launch.py 
 ```
 
+![ros2 topic img](/img/ros2_topic_sample.png)
+
 ## ROS 2 Topic data
 
 | Topic data             | msgs Type                           |
