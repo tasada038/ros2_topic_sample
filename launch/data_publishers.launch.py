@@ -18,6 +18,7 @@ from launch.substitutions import PathJoinSubstitution
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 
+
 def generate_launch_description():
     package_name = 'ros2_topic_sample'
     rviz_file_name = "topic_view.rviz"
