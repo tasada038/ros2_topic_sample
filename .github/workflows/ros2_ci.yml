@@ -35,8 +35,8 @@ jobs:
     - name: Install dependencies
       run: rosdep update --include-eol-distros && apt-get update && rosdep install --from-path . -i -y --rosdistro ${{ matrix.rosdistro }}
 
-    - name: Install diagnostic-updater
-      run: apt-get install ros-${{ matrix.rosdistro }}-diagnostic-updater
+#     - name: Install diagnostic-updater
+#       run: apt-get install ros-${{ matrix.rosdistro }}-diagnostic-updater
 
     - name: Build tests
       id: build_test
@@ -52,12 +52,21 @@ jobs:
       run: echo "result - failure" && exit 1
 
     - name: Run tests
+      id: run_test
       run: . /opt/ros/${{ matrix.rosdistro }}/setup.sh && colcon test --event-handlers console_cohesion+ && colcon test-result
       continue-on-error: true
 
+    - name: run_test command success
+      if: steps.run_test.outcome == 'success'
+      run: echo "result - success"
+
+    - name: run_test command failure
+      if: steps.run_test.outcome == 'failure'
+      run: echo "result - failure" && exit 1
+
   check_status:
     needs: build_and_test
-    if: ${{ needs.build_and_test.outcome != 'success' }}
+    if: ${{ needs.build_and_test.result != 'success' }}
     runs-on: ubuntu-latest
     steps:
       - name: Set Workflow Status to Failure
