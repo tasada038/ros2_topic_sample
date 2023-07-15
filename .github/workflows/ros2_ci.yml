@@ -39,17 +39,18 @@ jobs:
 #       run: apt-get install ros-${{ matrix.rosdistro }}-diagnostic-updater
 
     - name: Build tests
+      id: build_test
       run: . /opt/ros/${{ matrix.rosdistro }}/setup.sh && colcon build --event-handlers console_cohesion+
       continue-on-error: true
+
+    - name: build_test command success
+      if: steps.build_test.outcome == 'success'
+      run: echo "result - success"
+
+    - name: build_test command failure
+      if: steps.build_test.outcome == 'failure'
+      run: echo "result - failure" && exit 1
 
     - name: Run tests
       run: . /opt/ros/${{ matrix.rosdistro }}/setup.sh && colcon test --event-handlers console_cohesion+ && colcon test-result
       continue-on-error: true
-
-    - name: something when command success
-      if: steps.check_something.outcome == 'success'
-      run: echo "result - success"
-
-    - name: something when command failure
-      if: steps.check_something.outcome == 'failure'
-      run: echo "result - failure" && exit 1
