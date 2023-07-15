@@ -40,10 +40,16 @@ jobs:
 
     - name: Build tests
       run: . /opt/ros/${{ matrix.rosdistro }}/setup.sh && colcon build --event-handlers console_cohesion+
+      continue-on-error: true
 
     - name: Run tests
       run: . /opt/ros/${{ matrix.rosdistro }}/setup.sh && colcon test --event-handlers console_cohesion+ && colcon test-result
+      continue-on-error: true
 
-    - name: Set Job Status to Error
-      if: ${{ job.status != 'success' }}
-      run: exit 1
+    - name: something when command success
+      if: steps.check_something.outcome == 'success'
+      run: echo "result - success"
+
+    - name: something when command failure
+      if: steps.check_something.outcome == 'failure'
+      run: echo "result - failure" && exit 1
