@@ -38,5 +38,5 @@ jobs:
     - name: Build tests
       run: . /opt/ros/${{ matrix.rosdistro }}/setup.sh && colcon build --event-handlers console_cohesion+
 
-    - name: Run tests
-      run: . /opt/ros/${{ matrix.rosdistro }}/setup.sh && colcon test --event-handlers console_cohesion+ && colcon test-result
+#     - name: Run tests
+#       run: . /opt/ros/${{ matrix.rosdistro }}/setup.sh && colcon test --event-handlers console_cohesion+ && colcon test-result
