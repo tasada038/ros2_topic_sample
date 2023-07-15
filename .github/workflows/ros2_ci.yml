@@ -19,12 +19,7 @@ jobs:
 
     runs-on: ubuntu-latest
 
-#     continue-on-error: true
-
     container:
-      # There don't seem to be ROS perception docker images for ros2 yet, so we
-      # use the base imageand install the rest of the dependencies using rosdep
-      # each time.
       image: ros:${{ matrix.rosdistro }}-ros-base
 
     steps:
