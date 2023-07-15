@@ -35,6 +35,9 @@ jobs:
     - name: Install dependencies
       run: rosdep update --include-eol-distros && apt-get update && rosdep install --from-path . -i -y --rosdistro ${{ matrix.rosdistro }}
 
+    - name: Install diagnostic-updater
+      run: apt-get install ros-${{ matrix.rosdistro }}-diagnostic-updater
+
     - name: Build tests
       run: . /opt/ros/${{ matrix.rosdistro }}/setup.sh && colcon build --event-handlers console_cohesion+
 
