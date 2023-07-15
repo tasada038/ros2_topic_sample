@@ -31,7 +31,7 @@ public:
 
     diagnostic_updater_.setHardwareID("MyDevice");
     diagnostic_updater_.add(
-      "Data Diagnostic", 
+      "Data Diagnostic",
       std::bind(&DiagnosticNode::diagnosticCallback, this, std::placeholders::_1));
   }
 

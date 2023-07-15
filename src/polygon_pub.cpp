@@ -52,9 +52,9 @@ public:
     polygon_msg_.polygon.points.push_back(p3);
     polygon_msg_.polygon.points.push_back(p4);
 
-    timer_ = 
+    timer_ =
       create_wall_timer(
-      std::chrono::seconds(1), 
+      std::chrono::seconds(1),
       std::bind(&PolygonPubComponent::publishPolygonStamped, this));
   }
 

@@ -22,9 +22,9 @@ public:
   : Node("float32_pub")
   {
     publisher_ = create_publisher<std_msgs::msg::Float32>("/data", 10);
-    timer_ = 
+    timer_ =
       create_wall_timer(
-      std::chrono::seconds(1), 
+      std::chrono::seconds(1),
       std::bind(&Float32PubComponent::publishData, this));
   }
 
@@ -39,7 +39,7 @@ private:
     publisher_->publish(msg);
     count_++;
 
-    if(count_ > count_limit_) {
+    if (count_ > count_limit_) {
       count_ = 0.0;
     }
   }

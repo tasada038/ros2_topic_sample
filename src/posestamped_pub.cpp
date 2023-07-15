@@ -23,7 +23,7 @@ public:
   : Node("goal_pose_publisher")
   {
     subscription_ = create_subscription<geometry_msgs::msg::PoseStamped>(
-      "/goal_pose", 10, 
+      "/goal_pose", 10,
       std::bind(&GoalPoseComponent::goalPoseCallback, this, std::placeholders::_1));
     publisher_ = create_publisher<geometry_msgs::msg::PoseStamped>("/goal_pose", 10);
   }

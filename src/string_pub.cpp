@@ -39,9 +39,9 @@ public:
     gen_.seed(rd());
     dist_ = std::uniform_int_distribution<int>(0, rosWords_.size() - 1);
 
-    timer_ = 
+    timer_ =
       create_wall_timer(
-      std::chrono::seconds(1), 
+      std::chrono::seconds(1),
       std::bind(&StringPubComponent::publishRandomString, this));
   }
 

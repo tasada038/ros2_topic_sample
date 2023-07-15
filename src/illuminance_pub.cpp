@@ -28,9 +28,9 @@ public:
     std::random_device rd;
     gen_.seed(rd());
     dist_ = std::uniform_real_distribution<double>(0.0, 1000.0); // limit
-    timer_ = 
+    timer_ =
       create_wall_timer(
-      std::chrono::seconds(1), 
+      std::chrono::seconds(1),
       std::bind(&IlluminancePubComponent::publishRandomIlluminance, this));
   }
 

@@ -50,9 +50,9 @@ public:
     angular_y_dist_ = RealDist(angular_y_min, angular_y_max);
     angular_z_dist_ = RealDist(angular_z_min, angular_z_max);
 
-    timer_ = 
+    timer_ =
       create_wall_timer(
-      std::chrono::seconds(1), 
+      std::chrono::seconds(1),
       std::bind(&TwistStampedPubComponent::publishRandomTwistStamped, this));
   }
 

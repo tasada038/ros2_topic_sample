@@ -27,7 +27,7 @@ public:
     max_range_ = 5.0; // max range [m]
     range_ = min_range_;
 
-    timer_ = 
+    timer_ =
       create_wall_timer(std::chrono::seconds(1), std::bind(&RangePubComponent::publishRange, this));
   }
 
