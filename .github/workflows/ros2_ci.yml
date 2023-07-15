@@ -7,7 +7,7 @@ on:
     branches: [ master ]
   workflow_dispatch:
   schedule:
-    - cron: 0 0 * * *
+    - cron: '0 0 * * *'
   release:
     types: [published]
 
@@ -46,7 +46,7 @@ jobs:
       - name: Build tests
         id: build_test
         run: |
-          source /opt/ros/${{ matrix.rosdistro }}/setup.sh && 
+          . /opt/ros/${{ matrix.rosdistro }}/setup.sh && 
           colcon build
         continue-on-error: true
 
@@ -61,7 +61,7 @@ jobs:
       - name: Run tests
         id: run_test
         run: |
-          source /opt/ros/${{ matrix.rosdistro }}/setup.sh &&
+          . /opt/ros/${{ matrix.rosdistro }}/setup.sh &&
           colcon test && 
           colcon test-result
         continue-on-error: true
