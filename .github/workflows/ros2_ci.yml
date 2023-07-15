@@ -12,7 +12,7 @@ on:
     types: [published]
 
 jobs:
-  build:
+  build_and_test:
     strategy:
       matrix:
         rosdistro: [ humble ]
@@ -55,6 +55,10 @@ jobs:
       run: . /opt/ros/${{ matrix.rosdistro }}/setup.sh && colcon test --event-handlers console_cohesion+ && colcon test-result
       continue-on-error: true
 
-    - name: Check for Errors
-      run: exit ${{ job.steps[*].outcome == 'failure' }}
-      if: always()
+  check_status:
+    needs: build_and_test
+    if: ${{ needs.build_and_test.result == 'failure' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set Workflow Status to Failure
+        run: exit 1
