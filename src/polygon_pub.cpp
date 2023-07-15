@@ -21,7 +21,7 @@ class PolygonPubComponent : public rclcpp::Node
 {
 public:
   PolygonPubComponent()
-    : Node("polygon_stamped_publisher")
+  : Node("polygon_stamped_publisher")
   {
     publisher_ = create_publisher<geometry_msgs::msg::PolygonStamped>("/polygon_stamped_data", 10);
 
@@ -52,7 +52,10 @@ public:
     polygon_msg_.polygon.points.push_back(p3);
     polygon_msg_.polygon.points.push_back(p4);
 
-    timer_ = create_wall_timer(std::chrono::seconds(1), std::bind(&PolygonPubComponent::publishPolygonStamped, this));
+    timer_ = 
+      create_wall_timer(
+      std::chrono::seconds(1), 
+      std::bind(&PolygonPubComponent::publishPolygonStamped, this));
   }
 
 private:
@@ -71,7 +74,7 @@ private:
   geometry_msgs::msg::PolygonStamped polygon_msg_;
 };
 
-int main(int argc, char **argv)
+int main(int argc, char ** argv)
 {
   rclcpp::init(argc, argv);
   auto node = std::make_shared<PolygonPubComponent>();

@@ -21,14 +21,17 @@ class IlluminancePubComponent : public rclcpp::Node
 {
 public:
   IlluminancePubComponent()
-    : Node("random_illuminance_publisher")
+  : Node("random_illuminance_publisher")
   {
     publisher_ = create_publisher<sensor_msgs::msg::Illuminance>("/illuminance_data", 10);
 
     std::random_device rd;
     gen_.seed(rd());
     dist_ = std::uniform_real_distribution<double>(0.0, 1000.0); // limit
-    timer_ = create_wall_timer(std::chrono::seconds(1), std::bind(&IlluminancePubComponent::publishRandomIlluminance, this));
+    timer_ = 
+      create_wall_timer(
+      std::chrono::seconds(1), 
+      std::bind(&IlluminancePubComponent::publishRandomIlluminance, this));
   }
 
 private:
@@ -51,7 +54,7 @@ private:
   std::uniform_real_distribution<double> dist_;
 };
 
-int main(int argc, char **argv)
+int main(int argc, char ** argv)
 {
   rclcpp::init(argc, argv);
   auto node = std::make_shared<IlluminancePubComponent>();

@@ -22,15 +22,17 @@ class DiagnosticNode : public rclcpp::Node
 {
 public:
   DiagnosticNode()
-    : Node("diagnostic_node")
+  : Node("diagnostic_node")
     , diagnostic_updater_(this)
   {
     publisher_ = create_publisher<diagnostic_msgs::msg::DiagnosticArray>("/diagnostics", 10);
     subscription_ = create_subscription<std_msgs::msg::Float32>(
-        "/data", 10, std::bind(&DiagnosticNode::dataCallback, this, std::placeholders::_1));
+      "/data", 10, std::bind(&DiagnosticNode::dataCallback, this, std::placeholders::_1));
 
     diagnostic_updater_.setHardwareID("MyDevice");
-    diagnostic_updater_.add("Data Diagnostic", std::bind(&DiagnosticNode::diagnosticCallback, this, std::placeholders::_1));
+    diagnostic_updater_.add(
+      "Data Diagnostic", 
+      std::bind(&DiagnosticNode::diagnosticCallback, this, std::placeholders::_1));
   }
 
 private:
@@ -40,18 +42,13 @@ private:
     diagnostic_updater_.force_update();
   }
 
-  void diagnosticCallback(diagnostic_updater::DiagnosticStatusWrapper& stat)
+  void diagnosticCallback(diagnostic_updater::DiagnosticStatusWrapper & stat)
   {
-    if (data_value_ < 10.0)
-    {
+    if (data_value_ < 10.0) {
       stat.summary(diagnostic_msgs::msg::DiagnosticStatus::OK, "Data is within the normal range");
-    }
-    else if (data_value_ < 20.0)
-    {
+    } else if (data_value_ < 20.0) {
       stat.summary(diagnostic_msgs::msg::DiagnosticStatus::WARN, "Data is slightly high");
-    }
-    else
-    {
+    } else {
       stat.summary(diagnostic_msgs::msg::DiagnosticStatus::ERROR, "Data is too high");
     }
 
@@ -79,7 +76,7 @@ private:
   float data_value_ = 0.0;
 };
 
-int main(int argc, char** argv)
+int main(int argc, char ** argv)
 {
   rclcpp::init(argc, argv);
   rclcpp::spin(std::make_shared<DiagnosticNode>());

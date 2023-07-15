@@ -23,7 +23,7 @@ class StringPubComponent : public rclcpp::Node
 {
 public:
   StringPubComponent()
-    : Node("random_string_publisher")
+  : Node("random_string_publisher")
   {
     publisher_ = create_publisher<std_msgs::msg::String>("/string_topic", 10);
 
@@ -39,7 +39,10 @@ public:
     gen_.seed(rd());
     dist_ = std::uniform_int_distribution<int>(0, rosWords_.size() - 1);
 
-    timer_ = create_wall_timer(std::chrono::seconds(1), std::bind(&StringPubComponent::publishRandomString, this));
+    timer_ = 
+      create_wall_timer(
+      std::chrono::seconds(1), 
+      std::bind(&StringPubComponent::publishRandomString, this));
   }
 
 private:
@@ -61,7 +64,7 @@ private:
   std::uniform_int_distribution<int> dist_;
 };
 
-int main(int argc, char** argv)
+int main(int argc, char ** argv)
 {
   rclcpp::init(argc, argv);
   auto node = std::make_shared<StringPubComponent>();

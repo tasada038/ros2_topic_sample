@@ -20,7 +20,7 @@ class TwistStampedPubComponent : public rclcpp::Node
 {
 public:
   TwistStampedPubComponent()
-    : Node("random_twist_stamped_publisher")
+  : Node("random_twist_stamped_publisher")
   {
     publisher_ = create_publisher<geometry_msgs::msg::TwistStamped>("/random_twist_stamped", 10);
 
@@ -50,7 +50,10 @@ public:
     angular_y_dist_ = RealDist(angular_y_min, angular_y_max);
     angular_z_dist_ = RealDist(angular_z_min, angular_z_max);
 
-    timer_ = create_wall_timer(std::chrono::seconds(1), std::bind(&TwistStampedPubComponent::publishRandomTwistStamped, this));
+    timer_ = 
+      create_wall_timer(
+      std::chrono::seconds(1), 
+      std::bind(&TwistStampedPubComponent::publishRandomTwistStamped, this));
   }
 
 private:
@@ -83,7 +86,7 @@ private:
   std::uniform_real_distribution<double> angular_z_dist_;
 };
 
-int main(int argc, char** argv)
+int main(int argc, char ** argv)
 {
   rclcpp::init(argc, argv);
   auto node = std::make_shared<TwistStampedPubComponent>();

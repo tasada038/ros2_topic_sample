@@ -19,10 +19,13 @@ class Float32PubComponent : public rclcpp::Node
 {
 public:
   Float32PubComponent()
-    : Node("float32_pub")
+  : Node("float32_pub")
   {
     publisher_ = create_publisher<std_msgs::msg::Float32>("/data", 10);
-    timer_ = create_wall_timer(std::chrono::seconds(1), std::bind(&Float32PubComponent::publishData, this));
+    timer_ = 
+      create_wall_timer(
+      std::chrono::seconds(1), 
+      std::bind(&Float32PubComponent::publishData, this));
   }
 
 private:
@@ -36,8 +39,7 @@ private:
     publisher_->publish(msg);
     count_++;
 
-    if(count_ > count_limit_)
-    {
+    if(count_ > count_limit_) {
       count_ = 0.0;
     }
   }
@@ -48,7 +50,7 @@ private:
   float count_limit_ = 40;
 };
 
-int main(int argc, char** argv)
+int main(int argc, char ** argv)
 {
   rclcpp::init(argc, argv);
   auto node = std::make_shared<Float32PubComponent>();

@@ -19,7 +19,7 @@ class RangePubComponent : public rclcpp::Node
 {
 public:
   RangePubComponent()
-    : Node("range_publisher")
+  : Node("range_publisher")
   {
     publisher_ = create_publisher<sensor_msgs::msg::Range>("/range_data", 10);
 
@@ -27,7 +27,8 @@ public:
     max_range_ = 5.0; // max range [m]
     range_ = min_range_;
 
-    timer_ = create_wall_timer(std::chrono::seconds(1), std::bind(&RangePubComponent::publishRange, this));
+    timer_ = 
+      create_wall_timer(std::chrono::seconds(1), std::bind(&RangePubComponent::publishRange, this));
   }
 
 private:
@@ -59,7 +60,7 @@ private:
   float range_;
 };
 
-int main(int argc, char **argv)
+int main(int argc, char ** argv)
 {
   rclcpp::init(argc, argv);
   auto node = std::make_shared<RangePubComponent>();

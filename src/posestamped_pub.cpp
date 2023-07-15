@@ -20,18 +20,20 @@ class GoalPoseComponent : public rclcpp::Node
 {
 public:
   GoalPoseComponent()
-    : Node("goal_pose_publisher")
+  : Node("goal_pose_publisher")
   {
     subscription_ = create_subscription<geometry_msgs::msg::PoseStamped>(
-      "/goal_pose", 10, std::bind(&GoalPoseComponent::goalPoseCallback, this, std::placeholders::_1));
+      "/goal_pose", 10, 
+      std::bind(&GoalPoseComponent::goalPoseCallback, this, std::placeholders::_1));
     publisher_ = create_publisher<geometry_msgs::msg::PoseStamped>("/goal_pose", 10);
   }
 
 private:
   void goalPoseCallback(const geometry_msgs::msg::PoseStamped::SharedPtr msg)
   {
-    RCLCPP_INFO(get_logger(), "Received Goal Pose: (%f, %f)",
-                msg->pose.position.x, msg->pose.position.y);
+    RCLCPP_INFO(
+      get_logger(), "Received Goal Pose: (%f, %f)",
+      msg->pose.position.x, msg->pose.position.y);
 
     // Publish the received coordinates again
     publisher_->publish(*msg);
@@ -41,7 +43,7 @@ private:
   rclcpp::Publisher<geometry_msgs::msg::PoseStamped>::SharedPtr publisher_;
 };
 
-int main(int argc, char** argv)
+int main(int argc, char ** argv)
 {
   rclcpp::init(argc, argv);
   auto node = std::make_shared<GoalPoseComponent>();
