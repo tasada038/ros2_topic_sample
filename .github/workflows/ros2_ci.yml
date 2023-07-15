@@ -57,7 +57,7 @@ jobs:
 
   check_status:
     needs: build_and_test
-    if: ${{ needs.build_and_test.result == 'failure' }}
+    if: ${{ needs.build_and_test.result != 'success' }}
     runs-on: ubuntu-latest
     steps:
       - name: Set Workflow Status to Failure
