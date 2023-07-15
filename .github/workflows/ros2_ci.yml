@@ -19,6 +19,8 @@ jobs:
 
     runs-on: ubuntu-latest
 
+#     continue-on-error: true
+
     container:
       # There don't seem to be ROS perception docker images for ros2 yet, so we
       # use the base imageand install the rest of the dependencies using rosdep
@@ -33,8 +35,8 @@ jobs:
     - name: Install dependencies
       run: rosdep update --include-eol-distros && apt-get update && rosdep install --from-path . -i -y --rosdistro ${{ matrix.rosdistro }}
 
-#     - name: Install diagnostic-updater
-#       run: apt-get install ros-${{ matrix.rosdistro }}-diagnostic-updater
+    - name: Install diagnostic-updater
+      run: apt-get install ros-${{ matrix.rosdistro }}-diagnostic-updater
 
     - name: Build tests
       id: build_test
@@ -61,11 +63,3 @@ jobs:
     - name: run_test command failure
       if: steps.run_test.outcome == 'failure'
       run: echo "result - failure" && exit 1
-
-  check_status:
-    needs: build_and_test
-    if: ${{ needs.build_and_test.result != 'success' }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Set Workflow Status to Failure
-        run: exit 1
