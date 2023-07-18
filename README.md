@@ -1,6 +1,7 @@
 # ros2_topic_sample
 
 [![Build and run ROS2 tests](https://github.com/tasada038/ros2_topic_sample/actions/workflows/ros2_ci.yml/badge.svg)](https://github.com/tasada038/ros2_topic_sample/actions/workflows/ros2_ci.yml)
+[![GitHub license](https://img.shields.io/github/license/tasada038/ros2_topic_sample.svg)](https://github.com/tasada038/ros2_topic_sample/blob/master/LICENSE)
 
 ROS 2 topic sample package
 
